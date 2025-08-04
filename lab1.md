@@ -9,4 +9,10 @@ Two pipes are needed for the bi-directional communication since pipes are for un
 The overall idea is pretty straghitforward by following the diagram given in the linked post. Specifically, an overall "root" process starts by creating a pipe to its child for sending numbers from 2 to 280, and its child recursively sends the sieved numbers down to its child. Be careful with the opened fds. Failing to close any redundant fds would break the sieve pretty quickly.
 
 ## `find`
-Logic in `ls.c` can be largely reused for implementing `find`. Just be careful with not recursing into `.` and `..`. If the search path refers to a file, then do a file name comparison with the target file name (additional logic for extracting the file name from a absolute path is needed). 
+Logic in `ls.c` can be largely reused for implementing `find`. Just be careful with not recursing into `.` and `..`. If the search path refers to a file, then do a file name comparison with the target file name (additional logic for extracting the file name from a absolute path is needed).
+
+## `xargs`
+Essentially, `xargs` is used to make output to `stdout` available to `stdin` for the next command to read. The main difficulty for this task is to format the argument list properly. Specifically,
+- When there's only one line of input, execute the command with the specified arguments.
+- When there're multiple lines of input, execute each line with the given command separately.
+So careful handling of the arguments based on the presence of newline characters is needed.
