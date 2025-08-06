@@ -7,6 +7,7 @@ Two pipes are needed for the bi-directional communication since pipes are for un
 
 ## `primes`
 The overall idea is pretty straghitforward by following the diagram given in the linked post. Specifically, an overall "root" process starts by creating a pipe to its child for sending numbers from 2 to 280, and its child recursively sends the sieved numbers down to its child. Be careful with the opened fds. Failing to close any redundant fds would break the sieve pretty quickly.
+- Be careful: `pipe()` only copies the read/write file descriptors in a pipe from parent to child process, but they don't operate on the same ones. Hence, closing/opening the read/write end in one process doesn't affect the corresponding one in other processes.
 
 ## `find`
 Logic in `ls.c` can be largely reused for implementing `find`. Just be careful with not recursing into `.` and `..`. If the search path refers to a file, then do a file name comparison with the target file name (additional logic for extracting the file name from a absolute path is needed).
