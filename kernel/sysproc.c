@@ -92,11 +92,14 @@ sys_uptime(void)
   return xticks;
 }
 
+/* Fills in trace_mask for the calling process once for all */
 uint64
 sys_trace(void)
 {
-    printf("hello from sys_trace\n");
-    argint(0, &myproc()->trace_mask);
-    
+    int mask;
+    // printf("hello from sys_trace\n");
+    argint(0, &mask);
+    // printf("myproc()->trace_mask=%d, mask->%d\n", myproc()->trace_mask, mask);
+    myproc()->trace_mask = mask;
     return 0;    
 }

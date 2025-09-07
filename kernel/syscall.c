@@ -166,6 +166,7 @@ syscall(void)
     // Use num to lookup the system call function for num, call it,
     // and store its return value in p->trapframe->a0
     p->trapframe->a0 = syscalls[num]();
+    // printf("[syscall] p->trace_mask=%d\n", p->trace_mask);
     if ((p->trace_mask >> num) & 1) {
         // In the case of sys_trace, num == SYS_trace
         int ret = p->trapframe->a0;

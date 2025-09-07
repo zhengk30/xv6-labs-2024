@@ -18,10 +18,12 @@ main(int argc, char *argv[])
     fprintf(2, "%s: trace failed\n", argv[0]);
     exit(1);
   }
-  
+  printf("about to trace other syscalls\n"); 
   for(i = 2; i < argc && i < MAXARG; i++){
     nargv[i-2] = argv[i];
+    printf("%s ", nargv[i-2]);
   }
+  printf("\n");
   nargv[argc-2] = 0;
   exec(nargv[0], nargv);
   printf("trace: exec failed\n");
